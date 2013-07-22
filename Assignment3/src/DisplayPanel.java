@@ -6,6 +6,7 @@ import javax.swing.*;
 public class DisplayPanel extends JPanel {
 	private JPanel display;
 	private JLabel text;
+	private boolean error;
 
 	public DisplayPanel() {
 		display = new JPanel();
@@ -13,7 +14,8 @@ public class DisplayPanel extends JPanel {
 		text.setBounds(display.getX(), display.getY(), display.getWidth(), display.getHeight());
         text.setFont(new Font("Arial", Font.PLAIN, 24));
 		display.add(text);
-		this.add(display);	
+		this.add(display);
+		error = false;
 	}
 	
 	public JPanel getDisplay() {
@@ -21,10 +23,22 @@ public class DisplayPanel extends JPanel {
 	}
 	
 	public String getOutput() {
+		if (error) {
+			error = false;
+			return "";
+		}
 		return text.getText();
 	}
 	
 	public void setOutput(String message) {
 		text.setText(message);
+	}
+
+	public boolean isError() {
+		return error;
+	}
+
+	public void setError(boolean error) {
+		this.error = error;
 	}
 }

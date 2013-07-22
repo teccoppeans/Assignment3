@@ -69,6 +69,7 @@ public class Calculator {
 				}
 			}
 			catch (RuntimeException e) {
+				display.setError(true);
 				return e.getMessage();
 			}
 		}
@@ -90,6 +91,7 @@ public class Calculator {
 				catch (StackUnderflowException e) {
 					//output to display
 					numberStack.clear();
+					display.setError(true);
 					return "Not enough operands.";
 				}
 				if (input[i].equals("+")) {
@@ -104,12 +106,15 @@ public class Calculator {
 				else if (input[i].equals("/")) {
 					if (second == 0) {
 						numberStack.clear();
+						display.setError(true);
 						return "Divide by 0 error.";
 					}
 					numberStack.push(first / second);
 				}
-				else
+				else {
+					display.setError(true);
 					return "Unrecognized operator.";
+				}
 			}
 		}
 		String result = "";
@@ -125,8 +130,10 @@ public class Calculator {
 		//check for not enough operators
 		if (numberStack.isEmpty())
 			return result;
-		else
+		else {
+			display.setError(true);
 			return "Not enough operators.";
+		}
 	}
 	
 	public String calculatePrefix(String[] input) {
@@ -145,6 +152,7 @@ public class Calculator {
 				catch (StackUnderflowException e) {
 					//output to display
 					numberStack.clear();
+					display.setError(true);
 					return "Not enough operands.";
 				}
 				if (input[i].equals("+")) {
@@ -172,13 +180,16 @@ public class Calculator {
 		}
 		catch (StackUnderflowException e) {
 			//output to display
+			display.setError(true);
 			return "Invalid Input.";
 		}
 		//check for not enough operators
 		if (numberStack.isEmpty())
 			return result;
-		else
+		else {
+			display.setError(true);
 			return "Not enough operators.";
+		}
 	}
 	
 	public String calculateInfix(String[] input) {
